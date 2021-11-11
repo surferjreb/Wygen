@@ -1,21 +1,18 @@
 
 class WiegandGen:
-    def __init__(self, cardNumber, fac_code):
-        self.cardNumber = cardNumber
-        self.fac_code = fac_code
-        self.card = None
+    def __init__(self):
+        self._card = None
 
     def decimalToBinary(self, num):
         return bin(num).replace("0b", "")
 
-    def cNumTo26Bin(self, card):
+    def cNumToBin(self, card):
         card = self.decimalToBinary(card)
         card_index = 16
 
         while len(card) < card_index:
             card = '0' + card
         
-        card = self.add_odd_parity(card)
         return card
     
     def add_odd_parity(self, card):
@@ -26,18 +23,17 @@ class WiegandGen:
                 count += 1
 
         if count % 2 != 0:
-            return card + '1'
+            return card + '0'
 
-        return card + '0'
+        return card + '1'
 
-    def facTo26Bin(self, fac_code):
+    def facToBin(self, fac_code):
         fac_bin = self.decimalToBinary(fac_code)
         fac_index = 8
 
         while len(fac_bin) < fac_index:
             fac_bin = '0' + fac_bin
 
-        fac_bin = self.add_even_parity(fac_bin)
         return fac_bin
         
     def add_even_parity(self, fac):
@@ -48,11 +44,15 @@ class WiegandGen:
                 count += 1
 
         if count % 2 == 0:
-            return '1' + fac
+            return '0' + fac
 
-        return '0' + fac
+        return '1' + fac
 
-    def card_bin_gen(self):
-        fac_bin = self.facTo26Bin(self.fac_code)
-        c_bin = self.cNumTo26Bin(self.cardNumber)
-        self.card = fac_bin + c_bin
+    def card_bin_gen(self, fac_code, card_number):
+        fac_bin = self.facToBin(fac_code)
+        fac_bin = self.add_even_parity(fac_bin)
+        c_bin = self.cNumToBin(card_number)
+        c_bin = self.add_odd_parity(c_bin)
+
+        self._card = fac_bin + c_bin
+        return self._card

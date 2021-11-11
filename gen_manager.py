@@ -8,9 +8,9 @@ class GenManager:
 
     def gen_card_bin(self, cardNumber, fac_code):
 
-        wiegand = WiegandGen(cardNumber, fac_code)
-        wiegand.card_bin_gen()
-        self.write_to_list(wiegand.card)
+        wiegand = WiegandGen()
+        card = wiegand.card_bin_gen(cardNumber, fac_code)
+        self.write_to_list(card)
 
     def write_to_list(self, card):
         try:
