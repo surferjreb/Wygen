@@ -8,7 +8,8 @@ card_read = Pin(25, Pin.OUT, Pin.PULL_DOWN)
 # card: 420 - 425
 cards = []
 
-def read_card(card):
+
+def read_card(self, card):
     for bit in card:
         if bit == '0':
             dz.off()
@@ -19,16 +20,18 @@ def read_card(card):
             time.sleep_us(40)
             d1.on()
         time.sleep_ms(2)
-        
-def add_cards():
+
+
+def add_cards(self):
     file = open('cards.txt', 'r')
-    cards = file.readlines().split('\n')
-        
+    self.cards = file.readlines().split('\n')
+
+
 while True:
     add_cards()
     for card in cards:
         card_read.on()
         read_card(card)
         card_read.off()
-        time.sleep(10)
+        time.sleep(6)
         
