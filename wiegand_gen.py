@@ -48,11 +48,11 @@ class WiegandGen:
 
         return '1' + fac
 
-    def card_bin_gen(self, fac_code, card_number):
+    def card_bin_gen(self, card_number, fac_code):
         fac_bin = self.facToBin(fac_code)
-        fac_bin = self.add_even_parity(fac_bin)
+        fac_bin_code = self.add_even_parity(fac_bin)
         c_bin = self.cNumToBin(card_number)
-        c_bin = self.add_odd_parity(c_bin)
+        c_bin_code = self.add_odd_parity(c_bin)
 
         self._card = fac_bin + c_bin
         return self._card
