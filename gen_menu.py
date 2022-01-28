@@ -71,7 +71,7 @@ class GenMenu:
         card_start = self.check_card(self.codeStart.get())
         card_end = self.check_card(self.codeEnd.get())
 
-        for i in range(card_start, (card_end + 1)):
+        for i in range(card_start, card_end):
             self.manager.gen_card_bin(i, fac_code)
 
         self.manager.output_csv()

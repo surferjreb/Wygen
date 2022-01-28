@@ -54,5 +54,5 @@ class WiegandGen:
         c_bin = self.cNumToBin(card_number)
         c_bin_code = self.add_odd_parity(c_bin)
 
-        self._card = fac_bin + c_bin
+        self._card = fac_bin_code + c_bin_code
         return self._card
